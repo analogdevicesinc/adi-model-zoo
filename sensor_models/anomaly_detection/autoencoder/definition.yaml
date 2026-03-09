@@ -1,0 +1,52 @@
+version: "1.0"
+schema_type: "edge_ai_model"
+
+model:
+  name: "model_{machine_type}_quant.tflite"
+  version: "1.0.0"
+  description: "Autoencoder model for anomaly detection, optimized for MAX32690 deployment. Trained using the MIMII dataset, a sound dataset for malfunctioning industrial machine investigation and inspection "
+
+  formats:
+    - format: "TFLite"
+      model_files:
+        - name: "model_fan_quant.tflite"
+          precision: "float32"
+          size_mb: 0.287
+        - name: "model_pump_quant.tflite"
+          precision: "float32"
+          size_mb: 0.287
+        - name: "model_slider_quant.tflite"
+          precision: "float32"
+          size_mb: 0.287
+        - name: "model_valve_quant.tflite"
+          precision: "float32"
+          size_mb: 0.287
+
+  metadata:
+    authors:
+      - name: ["Ribeiro", "Matos", "Pereira", "Nunes", "Ferreira", "Cortez", "Pilastri"]
+        organization: "Operational Competitiveness and Internationalization Programme"
+    license:
+      model:
+        name: "Apache 2.0"
+        url: "https://spdx.org/licenses/Apache-2.0.html"
+      dataset:
+        name: "MIMII"
+        url: "https://spdx.org/licenses/CC-BY-SA-4.0.html"
+    research:
+      papers:
+        - title: "DEEP DENSE AND CONVOLUTIONAL AUTOENCODERS FOR UNSUPERVISED ANOMALY DETECTION IN MACHINE CONDITION SOUNDS"
+          authors: ["Ribeiro", "Matos", "Pereira", "Nunes", "Ferreira", "Cortez", "Pilastri"]
+          url: "https://arxiv.org/pdf/2006.10417"
+
+  inputs:
+    - name: "input"
+      type: "image"
+      shape: [n, 196, 640]
+      dtype: "float32"
+
+  outputs:
+    - name: "output"
+      type: "signal"
+      shape: [n, 196, 640]
+      dtype: "float32"
