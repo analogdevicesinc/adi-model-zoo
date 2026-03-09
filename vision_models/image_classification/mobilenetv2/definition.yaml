@@ -1,0 +1,52 @@
+version: "1.0"
+schema_type: "edge_ai_model"
+
+model:
+  name: "MobileNetv2"
+  version: "1.0"
+  description: "Image classification network by extracting features through inverted residual blocks with depthwise convolutions, predicting a class using global average pooling, and a final Softmax layer"
+
+  formats: 
+    - format: "ai8x"
+      model_files:
+        - name: "ai87net-mobilenet-v2.py"
+        - name: "ai87-cifar100-mobilenet-v2-0.75-qat8-q.pth.tar"
+          precision: "INT8"
+          size_mb: 10.5
+        - name: "ai87-cifar100-mobilenet-v2-0.5-qat8-q.pth.tar"
+          precision: "INT8"
+          size_mb: 5.12
+
+  metadata:
+    authors:
+      - name: "Mark Sandler"
+      - name: "Andrew Howard"
+      - name: "Menglong Zhu"
+      - name: "Andrey Zhmoginov"
+      - name: "Liang-Chieh Chen"
+        
+    license:
+      model:
+        name: "Apache 2.0"
+        url: "https://spdx.org/licenses/Apache-2.0.html"  
+      dataset:
+        name: "MIT"
+        url: "https://spdx.org/licenses/MIT.html"
+
+    research:
+      papers:
+        - title: "MobileNetV2: Inverted Residuals and Linear Bottlenecks"
+          authors: ["Mark Sandler", "Andrew Howard", "Menglong Zhu", "Andrey Zhmoginov", "Liang-Chieh Chen"]
+          url: "https://arxiv.org/abs/1801.04381"
+
+  inputs:
+    - name: "input"
+      type: "image"
+      shape: [3, 32, 32]
+      dtype: "int8"
+
+  outputs:
+    - name: "output"
+      type: "confidence scores"
+      shape: [1, 100]
+      dtype: "float32"
