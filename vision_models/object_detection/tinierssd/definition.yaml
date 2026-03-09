@@ -1,0 +1,49 @@
+version: "1.0"
+schema_type: "edge_ai_model"
+
+model:
+  name: "ai85-qrcode-tinierssd-kpts-qat8-q"
+  version: "1.0.0"
+  description: "Tinier Single Shot MultiBox Detector (TinierSSD) model for QR code detection with keypoints, optimized for MAX78002 deployment. Trained using the BG-20k dataset, which provides clean background images for generating synthetic training data"
+
+  formats:
+    - format: "AI8X"
+      model_files:
+        - name: ai85net_tinierssd_kpts_qr.py
+        - name: "ai85-qrcode-tinierssd-kpts-qat8-q.pth.tar"
+          precision: "INT8"
+          size_mb: 4.46
+
+  metadata:
+    authors:
+      - name: ["Wong", "Shafiee", "Li", "Chwyl"]
+        organization: "ULSee Inc."
+    license:
+      model:
+        name: "MIT"
+        url: "https://spdx.org/licenses/MIT.html"
+      dataset:
+        name: "MIT"
+        url: "https://spdx.org/licenses/MIT.html"
+    research:
+      papers:
+        - title: "Tiny SSD: A Tiny Single-shot Detection Deep Convolutional Neural Network for Real-time Embedded Object Detection"
+          authors: ["Wong", "Shafiee", "Li", "Chwyl"]
+          url: "https://arxiv.org/pdf/1802.06488"
+
+  inputs:
+    - name: "input"
+      type: "image"
+      shape: [1, 3, 120, 160]
+      dtype: "int8"
+
+  outputs:
+    - name: "loc"
+      type: "bounding box"
+      shape: [1, 1548, 12]
+      dtype: "int8"
+
+    - name: "score"
+      type: "confidence scores"
+      shape: [1, 1548, 2]
+      dtype: "int8"
