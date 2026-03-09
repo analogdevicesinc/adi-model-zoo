@@ -1,0 +1,25 @@
+Predicted Category: yes
+Confidence: 1.0000
+
+All Probabilities:
+up: 0.0000
+down: 0.0000
+left: 0.0000
+right: 0.0000
+stop: 0.0000
+go: 0.0000
+yes: 1.0000
+no: 0.0000
+on: 0.0000
+off: 0.0000
+one: 0.0000
+two: 0.0000
+three: 0.0000
+four: 0.0000
+five: 0.0000
+six: 0.0000
+seven: 0.0000
+eight: 0.0000
+nine: 0.0000
+zero: 0.0000
+_unknown_: 0.0000

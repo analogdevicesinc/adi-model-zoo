@@ -1,0 +1,43 @@
+version: "1.0"
+schema_type: "edge_ai_model"
+
+model:
+  name: "ai87-kws20_v3-qat8-q"
+  version: "1.0.0"
+  description: "Conv1D AudioNet model is for keyword spotting on MAX78002 device. This uses Google Speech Commands V2 dataset which contains a set of one-second .wav audio files, each containing a small set of commands."
+
+  formats:
+    - format: "AI8X"
+      model_files:
+        - name: "ai87-kws20_v3-qat8-q.pth.tar"
+          precision: "float32"
+          size_mb: 1.785
+
+  metadata:
+    authors:
+      - name: ["Zhang, Suda, Lai, Chandra"]
+        organization: "Cornell University"
+    license:
+      model:
+        name: "Apache 2.0"
+        url: "https://spdx.org/licenses/Apache-2.0.html"
+      dataset:
+        name: "Google Speech Commands V2"
+        url: "https://spdx.org/licenses/CC-BY-4.0.html"
+    research:
+      papers:
+        - title: "Hello Edge: Keyword Spotting on Microcontrollers"
+          authors: ["Zhang, Suda, Lai, Chandra"]
+          url: "https://arxiv.org/abs/1711.07128"
+
+  inputs:
+    - name: "input"
+      type: "audio"
+      shape: [128, 128]
+      dtype: "float32"
+
+  outputs:
+    - name: "output"
+      type: "output"
+      shape: [1, n]
+      dtype: "float32"
