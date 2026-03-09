@@ -1,0 +1,43 @@
+version: "1.0"
+schema_type: "edge_ai_model"
+
+model:
+  name: "net"
+  version: "1.0.0"
+  description: "GenreNet Conv2D model is for real-time audio genre classification, optimized for ADSP-SC835 deployment. Trained on the GTZAN dataset, it classifies audio into 10 genres: blues, classical, country, disco, hiphop, jazz, metal, pop, reggae, and rock."
+
+  formats:
+    - format: "PyTorch"
+      model_files:
+        - name: "net.pt"
+          precision: "float32"
+          size_mb: 15.304
+
+  metadata:
+    authors:
+      - name: ["Bala Ganesh", "Bhuvaneswari", "Bhagavathi Sankar", "Ganesh"]
+        organization: "Vellore Institute of Technology"
+    license:
+      model:
+        name: "MIT"
+        url: "https://spdx.org/licenses/MIT.html/"
+      dataset:
+        name: "MIT"
+        url: "https://spdx.org/licenses/MIT.html/"
+    research:
+      papers:
+        - title: "GenreNet: A Deep Based Approach for Music Genre Classification"
+          authors: ["Bala Ganesh", "Bhuvaneswari", "Bhagavathi Sankar", "Ganesh"]
+          url: "https://link.springer.com/article/10.1007/s42979-024-03493-x"
+
+  inputs:
+    - name: "main_input"
+      type: "audio"
+      shape: [1, 1, 128, 128]
+      dtype: "float32"
+
+  outputs:
+    - name: "output"
+      type: "output"
+      shape: [1, 10]
+      dtype: "float32"
