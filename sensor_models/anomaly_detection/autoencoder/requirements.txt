@@ -1,0 +1,6 @@
+torch>=2.10.0
+setuptools>=82.0.0
+Jinja2==3.1.6
+numpy
+scikit-learn
+ai-edge-litert
