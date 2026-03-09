@@ -1,0 +1,43 @@
+version: "1.0"
+schema_type: "edge_ai_model"
+
+model:
+  name: "vww2_50_50_INT8"
+  version: "2.0.0"
+  description: "Micronet Visual Wake Word 2.0 INT8 model is for person/non person detection, optimized for MAX32690 deployment. Trained using the Visual Wake Words dataset, designed for detecting whether a person is present in an image."
+
+  formats:
+    - format: "TFLite"
+      model_files:
+        - name: "vww2_50_50_INT8.tflite"
+          precision: "INT8"
+          size_mb: 0.267
+
+  metadata:
+    authors:
+      - name: ["Banburry", "Zhou", "Fedorov", "Navarro", "Thakker", "Gope", "Reddi", "Mattina", "Whatmough"]
+        organization: "MLSys"
+    license:
+      model:
+        name: "Apache-2.0"
+        url: "https://spdx.org/licenses/Apache-2.0.html"
+      dataset:
+        name: "Visual Wake Words"
+        url: "https://spdx.org/licenses/CC-BY-4.0.html"
+    research:
+      papers:
+        - title: "MICRONETS: NEURAL NETWORK ARCHITECTURES FOR DEPLOYING TINYML APPLICATIONS ON COMMODITY MICROCONTROLLERS"
+          authors: ["Banburry", "Zhou", "Fedorov", "Navarro", "Thakker", "Gope", "Reddi", "Mattina", "Whatmough"]
+          url: "https://arxiv.org/pdf/2010.11267.pdf"
+
+  inputs:
+    - name: "input"
+      type: "image"
+      shape: [1, 50, 50, 1]
+      dtype: "int8"
+
+  outputs:
+    - name: "identity"
+      type: "identity"
+      shape: [1, 2]
+      dtype: "int8"
