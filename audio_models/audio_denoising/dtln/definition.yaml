@@ -1,0 +1,72 @@
+version: "1.0"
+schema_type: "edge_ai_model"
+
+model:
+  name: "Dual-signal Transformation LSTM Network"
+  version: "1.0"
+  description: "Denoiser network that combines a short-time Fourier transform and a learned analysis and synthesis basis in a stacked-network approach with less than one million parameters"
+
+  formats: 
+    - format: "tflite"
+      model_files:
+        - name: "model_float_1.tflite"
+          precision: "FP32"
+          size_mb: 1.39
+        - name: "model_float_2.tflite"
+          precision: "FP32"
+          size_mb: 2.39
+
+  metadata:
+    authors:
+      - name: "Nils L. Westhausen"
+      - name: "Bernd T. Meyer"
+        
+    license:
+      model:
+        name: "MIT"
+        url: "https://spdx.org/licenses/MIT.html"  
+      dataset:
+        name: "Creative Commons Attribution 4.0 International"
+        url: "https://spdx.org/licenses/CC-BY-4.0.html"
+
+    research:
+      papers:
+        - title: "Dual-Signal Transformation LSTM Network for Real-Time Noise Suppression"
+          authors: ["Nils L. Westhausen", "Bernd T. Meyer"]
+          url: "https://www.isca-speech.org/archive/interspeech_2020/westhausen20_interspeech.html"
+
+  inputs:
+    - name: "in_mag"
+      type: "magnitude"
+      shape: [1, 1, 257]
+      dtype: "float32"
+    - name: "states_1"
+      type: "states"
+      shape: [1, 2, 128, 2]
+      dtype: "float32"
+    - name: "estimated_block"
+      type: "audio"
+      shape: [1, 1, 512]
+      dtype: "float32"
+    - name: "states_2"
+      type: "states"
+      shape: [1, 2, 128, 2]
+      dtype: "float32"
+
+  outputs:
+    - name: "out_mask"
+      type: "time-frequency mask"
+      shape: [1, 1, 257]
+      dtype: "float32"
+    - name: "states_1"
+      type: "states"
+      shape: [1, 2, 128, 2]
+      dtype: "float32"
+    - name: "out_block"
+      type: "audio"
+      shape: [1, 1, 512]
+      dtype: "float32"
+    - name: "states_2"
+      type: "states"
+      shape: [1, 2, 128, 2]
+      dtype: "float32"
