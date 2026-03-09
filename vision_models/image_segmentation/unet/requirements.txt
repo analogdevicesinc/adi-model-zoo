@@ -1,0 +1,9 @@
+torch>=2.10.0
+torchvision
+Pillow
+numpy
+tqdm
+Jinja2==3.1.6
+onnx>=1.17.0
+setuptools>=82.0.0
+matplotlib
