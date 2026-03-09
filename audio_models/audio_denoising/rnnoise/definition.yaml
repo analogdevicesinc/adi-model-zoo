@@ -1,0 +1,72 @@
+version: "1.0"
+schema_type: "edge_ai_model"
+
+model:
+  name: "RNNoise"
+  version: "1.0"
+  description: "Noise reduction network using RNNs that helps to remove noise from audio signals while maintaining any speech"
+
+  formats: 
+    - format: "tflite"
+      model_files:
+        - name: "rnnoise_INT8.tflite"
+          precision: "INT8"
+          size_mb: 0.107
+
+  metadata:
+    authors:
+      - name: "Jean-Marc Valin"
+        
+    license:
+      model:
+        name: "Apache-2.0"
+        url: "https://spdx.org/licenses/Apache-2.0.html"  
+      dataset:
+        name: "Creative Commons Attribution 4.0 International"
+        url: "https://spdx.org/licenses/CC-BY-4.0.html"
+
+    research:
+      papers:
+        - title: "A Hybrid DSP/Deep Learning Approach to Real-Time Full-Band Speech Enhancement"
+          authors: ["Jean-Marc Valin"]
+          url: "https://arxiv.org/pdf/1709.08243.pdf"
+
+  inputs:
+    - name: "main_input_int8"
+      type: "audio"
+      shape: [1, 1, 42]
+      dtype: "int8"
+    - name: "vad_gru_prev_state_int8"
+      type: "state"
+      shape: [1, 24]
+      dtype: "int8"
+    - name: "noise_gru_prev_state_int8"
+      type: "state"
+      shape: [1, 48]
+      dtype: "int8"
+    - name: "denoise_gru_prev_state_int8"
+      type: "state"
+      shape: [1, 96]
+      dtype: "int8"
+
+  outputs:
+    - name: "Identity_int8"
+      type: "state"
+      shape: [1, 1, 96]
+      dtype: "int8"
+    - name: "Identity_1_int8"
+      type: "magnitude"
+      shape: [1, 1, 22]
+      dtype: "int8"
+    - name: "Identity_2_int8"
+      type: "state"
+      shape: [1, 1, 48]
+      dtype: "int8"
+    - name: "Identity_3_int8"
+      type: "state"
+      shape: [1, 1, 24]
+      dtype: "int8"
+    - name: "Identity_4_int8"
+      type: "confidence score"
+      shape: [1, 1, 1]
+      dtype: "int8"

@@ -1,0 +1,4 @@
+librosa
+numpy
+SoundFile
+ai-edge-litert
