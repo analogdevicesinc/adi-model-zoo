@@ -1,0 +1,54 @@
+version: "1.0"
+schema_type: "edge_ai_model"
+
+model:
+  name: "Feature Pyramid Net"
+  version: "1.0"
+  description: "Object detection network that builds a multi‑scale feature pyramid by merging deep, strong features with shallow, high‑resolution features, enabling efficient detection of objects at different sizes"
+
+  formats: 
+    - format: "ai8x"
+      model_files:
+        - name: "ai87-fpndetector.py"
+        - name: "ai87-pascalvoc-fpndetector-qat8-q.pth.tar"
+          precision: "INT8"
+          size_mb: 25.16
+
+  metadata:
+    authors:
+      - name: "Tsung-Yi Lin"
+      - name: "Piotr Dollar"
+      - name: "Ross Girshick"
+      - name: "Kaiming He"
+      - name: "Bharath Hariharan"
+      - name: "Serge Belongie"
+        
+    license:
+      model:
+        name: "Apache 2.0"
+        url: "https://spdx.org/licenses/Apache-2.0.html"  
+      dataset:
+        name: "Creative Commons Attribution 2.5 Generic"
+        url: "https://spdx.org/licenses/CC-BY-2.5.html"
+
+    research:
+      papers:
+        - title: "Feature Pyramid Networks for Object Detection"
+          authors: ["Tsung-Yi Lin", "Piotr Dollar", "Ross Girshick", "Kaiming He", "Bharath Hariharan", "Serge Belongie"]
+          url: "https://arxiv.org/abs/1612.03144"
+
+  inputs:
+    - name: "input"
+      type: "image"
+      shape: [3, 256, 320]
+      dtype: "int8"
+
+  outputs:
+    - name: "regression"
+      type: "bounding box"
+      shape: [1, 10200, 4]
+      dtype: "int8"
+    - name: "classification"
+      type: "confidence scores"
+      shape: [1, 10200, 21]
+      dtype: "int32"
