@@ -1,0 +1,16 @@
+Predicted Category: yes
+Confidence: 0.9233
+
+All Probabilities:
+silence: 0.0000
+unknown: 0.0471
+yes: 0.9233
+no: 0.0032
+up: 0.0000
+down: 0.0001
+left: 0.0244
+right: 0.0006
+on: 0.0000
+off: 0.0000
+stop: 0.0000
+go: 0.0015
