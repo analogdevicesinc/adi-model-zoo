@@ -1,0 +1,7 @@
+                  EFFNETV2                  
+         INFERENCE FOR: banana.jpg          
+============================================
+Image                : banana.jpg
+Predicted Index      : 954
+Predicted Label      : banana
+--------------------------------------------

@@ -1,0 +1,43 @@
+version: "1.0"
+schema_type: "edge_ai_model"
+
+model:
+  name: "ai87-imagenet-effnet2-q"
+  version: "1.0.0"
+  description: "EfficientNetV2 model is optimized for image classification on the MAX78002. This is trained on the ImageNet dataset to perform large-scale visual recognition tasks."
+
+  formats:
+    - format: "AI8X"
+      model_files:
+        - name: "ai87-imagenet-effnet2-q.pth.tar"
+          precision: "float32"
+          size_mb: 19.9
+
+  metadata:
+    authors:
+      - name: ["Tan", "Le"]
+        organization: "Google Research"
+    license:
+      model:
+        name: "Apache 2.0"
+        url: "https://spdx.org/licenses/Apache-2.0.html"
+      dataset:
+        name: "Apache 2.0"
+        url: "https://spdx.org/licenses/Apache-2.0.html"
+    research:
+      papers:
+        - title: "EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks"
+          authors: ["Tan", "Le"]
+          url: "https://arxiv.org/abs/1905.11946"
+
+  inputs:
+    - name: "input"
+      type: "image"
+      shape: [112, 112]
+      dtype: "float32"
+
+  outputs:
+    - name: "output"
+      type: "label"
+      shape: [1, 1000]
+      dtype: "float32"
