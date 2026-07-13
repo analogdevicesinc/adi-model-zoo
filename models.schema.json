@@ -1,0 +1,341 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://analogdevicesinc.github.io/rdl-edgeai-models/models.schema.json",
+  "title": "ADI Edge AI Model Zoo Index",
+  "description": "Schema for the model zoo index file consumed by CFS and other tooling. Provides a single source of truth for available models, their supported platforms, and paths to artifacts.",
+  "type": "object",
+  "required": ["version", "lastUpdated", "models"],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Reference to this JSON schema file.",
+      "examples": ["./models.schema.json"]
+    },
+    "version": {
+      "type": "string",
+      "description": "Semantic version of the index schema format.",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "examples": ["1.0.0"]
+    },
+    "lastUpdated": {
+      "type": "string",
+      "format": "date",
+      "description": "ISO 8601 date when this index was last regenerated.",
+      "examples": ["2026-06-25"]
+    },
+    "models": {
+      "type": "array",
+      "description": "List of all models available in the zoo.",
+      "items": {
+        "$ref": "#/$defs/model"
+      }
+    }
+  },
+  "$defs": {
+    "model": {
+      "type": "object",
+      "required": [
+        "uniqueId",
+        "name",
+        "description",
+        "task",
+        "taskType",
+        "framework",
+        "license",
+        "supportedPlatforms"
+      ],
+      "properties": {
+        "uniqueId": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Stable UUID for this model entry. Must not change across index updates."
+        },
+        "name": {
+          "type": "string",
+          "description": "Short display name for the model.",
+          "examples": ["DS CNN", "DTLN", "TinierSSD"]
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Optional human-friendly display name if different from name.",
+          "examples": ["GenreNet (Conv2D)"]
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 200,
+          "description": "Brief description of what the model does, its architecture, and training data."
+        },
+        "task": {
+          "type": "string",
+          "description": "The ML task this model performs.",
+          "enum": [
+            "Keyword Spotting",
+            "Genre Identification",
+            "Denoiser",
+            "Anomaly Detection",
+            "Motor Fault Detection",
+            "Image Segmentation",
+            "Image Classification",
+            "Visual Wake Word",
+            "Object Detection",
+            "Action Recognition"
+          ]
+        },
+        "taskType": {
+          "type": "string",
+          "description": "High-level domain category.",
+          "enum": ["Audio", "Time-series", "Vision"]
+        },
+        "framework": {
+          "type": "string",
+          "description": "ML framework the model weights are stored in.",
+          "enum": ["tensorflow", "pytorch", "onnx"]
+        },
+        "license": {
+          "type": "string",
+          "description": "SPDX license identifier for the model.",
+          "examples": ["Apache-2.0", "MIT"]
+        },
+        "owner": {
+          "type": "string",
+          "description": "Organization that owns/maintains the model.",
+          "default": "ADI"
+        },
+        "supportedPlatforms": {
+          "type": "array",
+          "description": "SoCs this model is optimized to run on, with per-platform details.",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/platformSupport"
+          }
+        },
+        "networkInputs": {
+          "type": "array",
+          "description": "Description of model input tensors.",
+          "items": {
+            "$ref": "#/$defs/tensorInfo"
+          }
+        },
+        "networkOutputs": {
+          "type": "array",
+          "description": "Description of model output tensors.",
+          "items": {
+            "$ref": "#/$defs/tensorInfo"
+          }
+        },
+        "accuracy": {
+          "$ref": "#/$defs/accuracy",
+          "description": "Accuracy metrics and dataset information."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp when this model was first added to the zoo."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp when this model entry was last modified."
+        }
+      }
+    },
+    "platformSupport": {
+      "type": "object",
+      "required": ["soc", "board", "core"],
+      "allOf": [
+        {
+          "if": { "properties": { "soc": { "const": "MAX78002" } } },
+          "then": { "properties": { "board": { "enum": ["AD-APARD32690-SL", "EvKit_V1", "FTHR"] } } }
+        },
+        {
+          "if": { "properties": { "soc": { "const": "MAX32690" } } },
+          "then": { "properties": { "board": { "enum": ["EvKit_V1", "FTHR"] } } }
+        },
+        {
+          "if": { "properties": { "soc": { "const": "ADSP-SC835" } } },
+          "then": { "properties": { "board": { "enum": ["ADSPSC835-EV-SOM", "EV-SOMCRR-EZKIT"] } } }
+        }
+      ],
+      "properties": {
+        "soc": {
+          "type": "string",
+          "description": "System-on-Chip name.",
+          "enum": ["MAX78002", "MAX32690", "ADSP-SC835"]
+        },
+        "board": {
+          "type": "string",
+          "description": "Development or evaluation board that hosts this SoC.",
+          "examples": ["AD-APARD32690-SL", "EvKit_V1", "FTHR", "ADSPSC835-EV-SOM", "EV-SOMCRR-EZKIT"]
+        },
+        "package": {
+          "type": "string",
+          "description": "Package variant of the SoC.",
+          "enum": ["WLP", "TQFN"]
+        },
+        "family": {
+          "type": "string",
+          "description": "Processor family this core belongs to.",
+          "enum": ["Cortex-M", "SHARC-FX"]
+        },
+        "core": {
+          "type": "string",
+          "description": "Processor core targeted by this model.",
+          "enum": ["CM4", "FX", "CM33"]
+        },
+        "accelerator": {
+          "type": "string",
+          "description": "Hardware AI accelerator used by this model.",
+          "enum": ["CNN"]
+        },
+        "modelPaths": {
+          "$ref": "#/$defs/quantizationPaths",
+          "description": "Model artifact paths keyed by quantization level. Paths are relative to the repository root."
+        },
+        "sizeInKb": {
+          "type": "object",
+          "description": "Model file sizes in kilobytes, keyed by quantization level.",
+          "additionalProperties": {
+            "type": "number"
+          }
+        },
+        "sample_binary": {
+          "$ref": "#/$defs/quantizationPaths",
+          "description": "Prebuilt sample binary paths for this platform, keyed by quantization level."
+        },
+        "compilation": {
+          "$ref": "#/$defs/compilationOptions",
+          "description": "Available compilation parameters for this model on this platform."
+        }
+      }
+    },
+    "compilationOptions": {
+      "type": "object",
+      "properties": {
+        "hardwareParameters": {
+          "type": "array",
+          "description": "Hardware feature toggles available during compilation.",
+          "items": {
+            "type": "object",
+            "required": ["id", "default"],
+            "properties": {
+              "id": {
+                "type": "string",
+                "examples": ["max_speed", "riscv", "deepsleep", "powerdown", "kernel"]
+              },
+              "default": {
+                "description": "Default value for this parameter."
+              },
+              "values": {
+                "type": "array",
+                "description": "Allowed values if this is an enum-style parameter (e.g., kernel).",
+                "items": {}
+              }
+            }
+          }
+        },
+        "optimization": {
+          "type": "object",
+          "properties": {
+            "values": {
+              "type": "array",
+              "items": { "type": "string" },
+              "examples": [["-O0", "-O2", "-O3"]]
+            },
+            "default": {
+              "type": "string",
+              "examples": ["-O0"]
+            }
+          }
+        },
+        "quantization": {
+          "type": "object",
+          "properties": {
+            "values": {
+              "type": "array",
+              "items": { "type": "string" },
+              "examples": [["int8", "float32"]]
+            },
+            "default": {
+              "type": "string",
+              "examples": ["int8"]
+            }
+          }
+        }
+      }
+    },
+    "quantizationPaths": {
+      "type": "object",
+      "description": "Map of quantization level to model file path(s). For multi-file models, the value may encode multiple paths.",
+      "additionalProperties": {
+        "oneOf": [
+          {
+            "type": "string",
+            "description": "Single model file path relative to repo root."
+          },
+          {
+            "type": "array",
+            "description": "Multiple model files (e.g., multi-stage pipelines like DTLN).",
+            "items": { "type": "string" }
+          }
+        ]
+      }
+    },
+    "tensorInfo": {
+      "type": "object",
+      "required": ["name", "shape"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Tensor node name.",
+          "examples": ["input", "Identity", "loc"]
+        },
+        "shape": {
+          "type": "string",
+          "description": "Tensor shape as a string.",
+          "examples": ["(1, 490)", "(1, 3, 120, 160)", "(1, 12)"]
+        },
+        "description": {
+          "type": "string",
+          "description": "What this tensor represents.",
+          "examples": ["RGB input image resized to 120x160 (HxW). Channels-first format."]
+        },
+        "network": {
+          "type": "string",
+          "description": "For multi-network models, which sub-network this tensor belongs to.",
+          "examples": ["Network #1", "Network #2"]
+        }
+      }
+    },
+    "accuracy": {
+      "type": "object",
+      "properties": {
+        "dataset": {
+          "type": "string",
+          "description": "Name/description of the evaluation dataset.",
+          "examples": ["Google Speech Commands test set", "MIMII Dataset - Fan"]
+        },
+        "metrics": {
+          "type": "array",
+          "description": "Accuracy metrics achieved by this model.",
+          "items": {
+            "type": "object",
+            "required": ["name", "value"],
+            "properties": {
+              "name": {
+                "type": "string",
+                "examples": ["Accuracy", "mAP", "PESQ", "AUC", "Top-1 Accuracy"]
+              },
+              "value": {
+                "oneOf": [
+                  { "type": "string" },
+                  { "type": "number" }
+                ],
+                "examples": ["94.52%", 0.8996, 2.95]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
