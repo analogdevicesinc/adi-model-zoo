@@ -1,0 +1,1061 @@
+{
+  "$schema": "./models.schema.json",
+  "version": "1.0.0",
+  "lastUpdated": "2026-07-22",
+  "models": [
+    {
+      "uniqueId": "bb653b9c-5af1-4e6f-976e-8dec1ded903d",
+      "name": "DS CNN",
+      "displayName": "DS-CNN Small",
+      "description": "DS-CNN Small model by Arm for keyword spotting. Trained on Google Speech Commands V2 dataset containing one-second .wav audio files of spoken commands.",
+      "task": "Keyword Spotting",
+      "taskType": "Audio",
+      "framework": "tensorflow",
+      "license": "Apache-2.0",
+      "owner": "ADI",
+      "supportedPlatforms": [
+        {
+          "soc": "MAX32690",
+          "board": "EvKit_V1",
+          "family": "Cortex-M",
+          "core": "CM4",
+          "modelPaths": {
+            "int8": "audio_models/audio_keyword_spotting/ds_cnn/data/model/ds_cnn_s_int8.tflite",
+            "int16": "audio_models/audio_keyword_spotting/ds_cnn/data/model/ds_cnn_s_int16.tflite",
+            "float32": "audio_models/audio_keyword_spotting/ds_cnn/data/model/ds_cnn_s_float32.tflite"
+          },
+          "sizeInKb": {
+            "int8": 46.5,
+            "int16": 54.094,
+            "float32": 96.441
+          },
+          "sample_binary": {
+            "int8": "audio_models/audio_keyword_spotting/ds_cnn/data/input/kws_ds-cnn_int8.bin",
+            "int16": "audio_models/audio_keyword_spotting/ds_cnn/data/input/kws_ds-cnn_int16.bin",
+            "float32": "audio_models/audio_keyword_spotting/ds_cnn/data/input/kws_ds-cnn_float32.bin"
+          },
+          "compilation": {
+            "hardwareParameters": [],
+            "optimization": {
+              "values": ["-O0", "-O2"],
+              "default": "-O0"
+            },
+            "quantization": {
+              "values": ["int8", "int16", "float32"],
+              "default": "int8"
+            }
+          }
+        },
+        {
+          "soc": "ADSP-SC835",
+          "board": "ADSPSC835-EV-SOM",
+          "family": "SHARC-FX",
+          "core": "FX",
+          "modelPaths": {
+            "int8": "audio_models/audio_keyword_spotting/ds_cnn/data/model/ds_cnn_s_int8.tflite",
+            "int16": "audio_models/audio_keyword_spotting/ds_cnn/data/model/ds_cnn_s_int16.tflite",
+            "float32": "audio_models/audio_keyword_spotting/ds_cnn/data/model/ds_cnn_s_float32.tflite"
+          },
+          "sizeInKb": {
+            "int8": 46.5,
+            "int16": 54.094,
+            "float32": 96.441
+          },
+          "sample_binary": {
+            "int8": "audio_models/audio_keyword_spotting/ds_cnn/data/input/kws_ds-cnn_int8.bin",
+            "int16": "audio_models/audio_keyword_spotting/ds_cnn/data/input/kws_ds-cnn_int16.bin",
+            "float32": "audio_models/audio_keyword_spotting/ds_cnn/data/input/kws_ds-cnn_float32.bin"
+          },
+          "compilation": {
+            "hardwareParameters": [],
+            "optimization": {
+              "values": ["-O0", "-O3"],
+              "default": "-O0"
+            },
+            "quantization": {
+              "values": ["int8", "int16", "float32"],
+              "default": "int8"
+            }
+          }
+        }
+      ],
+      "networkInputs": [
+        {
+          "name": "input",
+          "shape": "(1, 490)",
+          "description": "Processed MFCCs from a one-second audio clip."
+        }
+      ],
+      "networkOutputs": [
+        {
+          "name": "Identity",
+          "shape": "(1, 12)",
+          "description": "Probability distribution over 12 keyword classes."
+        }
+      ],
+      "accuracy": {
+        "dataset": "Google Speech Commands test set",
+        "metrics": [
+          {
+            "name": "Accuracy",
+            "value": "94.52%"
+          }
+        ]
+      },
+      "createdAt": "2026-03-10T00:00:00Z",
+      "updatedAt": "2026-07-14T00:00:00Z"
+    },
+    {
+      "uniqueId": "63274f5f-31f4-448d-b82f-48b706741301",
+      "name": "DTLN",
+      "displayName": "Dual-signal Transformation LSTM Network",
+      "description": "Denoiser network combining a short-time Fourier transform and a learned analysis and synthesis basis in a stacked-network approach with less than one million parameters.",
+      "task": "Denoiser",
+      "taskType": "Audio",
+      "framework": "tensorflow",
+      "license": "MIT",
+      "owner": "ADI",
+      "supportedPlatforms": [
+        {
+          "soc": "ADSP-SC835",
+          "board": "ADSPSC835-EV-SOM",
+          "family": "SHARC-FX",
+          "core": "FX",
+          "modelPaths": {
+            "float32": [
+              "audio_models/audio_denoising/dtln/data/model/model_float32/model_float_1.tflite",
+              "audio_models/audio_denoising/dtln/data/model/model_float32/model_float_2.tflite"
+            ],
+            "int16": [
+              "audio_models/audio_denoising/dtln/data/model/model_int16/model_int16_1.tflite",
+              "audio_models/audio_denoising/dtln/data/model/model_int16/model_int16_2.tflite"
+            ]
+          },
+          "sizeInKb": {
+            "float32": 3876.633,
+            "int16": 1027.664
+          },
+          "sample_binary": {
+            "float32": "audio_models/audio_denoising/dtln/data/input/denoiser_dtln_float32.bin",
+            "int16": "audio_models/audio_denoising/dtln/data/input/denoiser_dtln_int16.bin"
+          },
+          "compilation": {
+            "hardwareParameters": [],
+            "optimization": {
+              "values": ["-O0", "-O3"],
+              "default": "-O0"
+            },
+            "quantization": {
+              "values": ["float32", "int16"],
+              "default": "float32"
+            }
+          }
+        }
+      ],
+      "networkInputs": [
+        {
+          "name": "in_mag",
+          "shape": "(1, 1, 257)",
+          "description": "Preprocessed magnitude chunk of input audio.",
+          "network": "Network #1"
+        },
+        {
+          "name": "states_1",
+          "shape": "(1, 2, 128, 2)",
+          "description": "LSTM state for Network #1.",
+          "network": "Network #1"
+        },
+        {
+          "name": "estimated_block",
+          "shape": "(1, 1, 512)",
+          "description": "Time domain block derived from output of Network #1.",
+          "network": "Network #2"
+        },
+        {
+          "name": "states_2",
+          "shape": "(1, 2, 128, 2)",
+          "description": "LSTM state for Network #2.",
+          "network": "Network #2"
+        }
+      ],
+      "networkOutputs": [
+        {
+          "name": "out_mask",
+          "shape": "(1, 1, 257)",
+          "description": "Time-frequency mask output of Network #1.",
+          "network": "Network #1"
+        },
+        {
+          "name": "states_1",
+          "shape": "(1, 2, 128, 2)",
+          "description": "LSTM state for Network #1.",
+          "network": "Network #1"
+        },
+        {
+          "name": "out_block",
+          "shape": "(1, 1, 512)",
+          "description": "Denoised audio output of Network #2.",
+          "network": "Network #2"
+        },
+        {
+          "name": "states_2",
+          "shape": "(1, 2, 128, 2)",
+          "description": "LSTM state for Network #2.",
+          "network": "Network #2"
+        }
+      ],
+      "accuracy": {
+        "dataset": "DNS challenge dataset",
+        "metrics": [
+          {
+            "name": "PESQ",
+            "value": "2.95"
+          }
+        ]
+      },
+      "createdAt": "2026-03-10T00:00:00Z",
+      "updatedAt": "2026-07-14T00:00:00Z"
+    },
+    {
+      "uniqueId": "83d9b883-3a4c-4707-9027-55be1799cba2",
+      "name": "RNNoise",
+      "description": "Noise reduction network using RNNs that helps to remove noise from audio signals while maintaining any speech.",
+      "task": "Denoiser",
+      "taskType": "Audio",
+      "framework": "tensorflow",
+      "license": "Apache-2.0",
+      "owner": "ADI",
+      "supportedPlatforms": [
+        {
+          "soc": "MAX32690",
+          "board": "EvKit_V1",
+          "family": "Cortex-M",
+          "core": "CM4",
+          "modelPaths": {
+            "int8": "audio_models/audio_denoising/rnnoise/data/model/rnnoise_INT8.tflite"
+          },
+          "sizeInKb": {
+            "int8": 110.812
+          },
+          "sample_binary": {
+            "int8": "audio_models/audio_denoising/rnnoise/data/input/denoiser_rnnoise_int8.bin"
+          },
+          "compilation": {
+            "hardwareParameters": [],
+            "optimization": {
+              "values": ["-O0", "-O2"],
+              "default": "-O0"
+            },
+            "quantization": {
+              "values": ["int8"],
+              "default": "int8"
+            }
+          }
+        }
+      ],
+      "networkInputs": [
+        {
+          "name": "main_input_int8",
+          "shape": "(1, 1, 42)",
+          "description": "Pre-processed signal features extracted from 480 values of a 48KHz wav file."
+        },
+        {
+          "name": "vad_gru_prev_state_int8",
+          "shape": "(1, 24)",
+          "description": "Previous GRU state for the voice activity detection GRU."
+        },
+        {
+          "name": "noise_gru_prev_state_int8",
+          "shape": "(1, 48)",
+          "description": "Previous GRU state for the noise GRU."
+        },
+        {
+          "name": "denoise_gru_prev_state_int8",
+          "shape": "(1, 96)",
+          "description": "Previous GRU state for the denoise GRU."
+        }
+      ],
+      "networkOutputs": [
+        {
+          "name": "Identity_int8",
+          "shape": "(1, 1, 96)",
+          "description": "Next GRU state for the denoise GRU."
+        },
+        {
+          "name": "Identity_1_int8",
+          "shape": "(1, 1, 22)",
+          "description": "Gain values that can be used to remove noise from this audio sample."
+        },
+        {
+          "name": "Identity_2_int8",
+          "shape": "(1, 1, 48)",
+          "description": "Next GRU state for the noise GRU."
+        },
+        {
+          "name": "Identity_3_int8",
+          "shape": "(1, 1, 24)",
+          "description": "Next GRU state for the voice activity detection GRU."
+        },
+        {
+          "name": "Identity_4_int8",
+          "shape": "(1, 1, 1)",
+          "description": "Probability that this audio sample contains voice activity."
+        }
+      ],
+      "accuracy": {
+        "dataset": "Noisy Speech database",
+        "metrics": [
+          {
+            "name": "Average PESQ",
+            "value": "2.945"
+          }
+        ]
+      },
+      "createdAt": "2026-03-10T00:00:00Z",
+      "updatedAt": "2026-07-14T00:00:00Z"
+    },
+    {
+      "uniqueId": "09435e73-240b-4de3-9f1b-2ff8db4bfb30",
+      "name": "GenreNet Conv2D",
+      "description": "GenreNet Conv2D model for real-time audio genre classification. Trained on the GTZAN dataset, it classifies audio into 10 genres.",
+      "task": "Genre Identification",
+      "taskType": "Audio",
+      "framework": "tensorflow",
+      "license": "MIT",
+      "owner": "ADI",
+      "supportedPlatforms": [
+        {
+          "soc": "ADSP-SC835",
+          "board": "ADSPSC835-EV-SOM",
+          "family": "SHARC-FX",
+          "core": "FX",
+          "modelPaths": {
+            "int8": "audio_models/audio_genre_identification/genrenet_conv2d/data/model/int8_genre_ID.tflite"
+          },
+          "sizeInKb": {
+            "int8": 3856.695
+          },
+          "sample_binary": {
+            "int8": "audio_models/audio_genre_identification/genrenet_conv2d/data/input/genre-id_genrenet_int8.bin"
+          },
+          "compilation": {
+            "hardwareParameters": [],
+            "optimization": {
+              "values": ["-O0", "-O3"],
+              "default": "-O0"
+            },
+            "quantization": {
+              "values": ["int8"],
+              "default": "int8"
+            }
+          }
+        }
+      ],
+      "networkInputs": [
+        {
+          "name": "main_input",
+          "shape": "(1, 1, 128, 128)",
+          "description": "Pre-processed signal features extracted from audio."
+        }
+      ],
+      "networkOutputs": [
+        {
+          "name": "output",
+          "shape": "(1, 10)",
+          "description": "Probability distribution over 10 genre classes."
+        }
+      ],
+      "accuracy": {
+        "dataset": "GTZAN Genre Collection",
+        "metrics": [
+          {
+            "name": "Accuracy",
+            "value": "0.8450"
+          }
+        ]
+      },
+      "createdAt": "2026-03-10T00:00:00Z",
+      "updatedAt": "2026-07-14T00:00:00Z"
+    },
+    {
+      "uniqueId": "c64b113d-95a0-44fb-b8c4-e49fb7044fc3",
+      "name": "Conv1D AudioNet",
+      "description": "Conv1D AudioNet model for keyword spotting on MAX78002. Trained on Google Speech Commands V2 dataset containing one-second .wav audio files.",
+      "task": "Keyword Spotting",
+      "taskType": "Audio",
+      "framework": "pytorch",
+      "license": "Apache-2.0",
+      "owner": "ADI",
+      "supportedPlatforms": [
+        {
+          "soc": "MAX78002",
+          "board": "EvKit_V1",
+          "family": "Cortex-M",
+          "core": "CM4",
+          "accelerator": "CNN",
+          "modelPaths": {
+            "int8": [
+              "audio_models/audio_keyword_spotting/conv1d_audionet/data/model/ai87-kws20_v3-qat8-q.pth.tar",
+              "audio_models/audio_keyword_spotting/conv1d_audionet/data/model/ai87net-kws20-v3.py"
+            ]
+          },
+          "sizeInKb": {
+            "int8": 1788.086
+          },
+          "sample_binary": {
+            "int8": "audio_models/audio_keyword_spotting/conv1d_audionet/data/input/kws_conv1d-audionet_int8.bin"
+          },
+          "compilation": {
+            "hardwareParameters": [],
+            "optimization": {
+              "values": ["-O0", "-O2"],
+              "default": "-O0"
+            },
+            "quantization": {
+              "values": ["int8"],
+              "default": "int8"
+            }
+          }
+        }
+      ],
+      "networkInputs": [
+        {
+          "name": "input",
+          "shape": "(128, 128)",
+          "description": "Time and Feature dimensions."
+        }
+      ],
+      "networkOutputs": [
+        {
+          "name": "output",
+          "shape": "(1, 21)",
+          "description": "Probability distribution over 21 keyword classes (20 keywords + unknown)."
+        }
+      ],
+      "accuracy": {
+        "dataset": "Google Speech Commands V2 (KWS20)",
+        "metrics": [
+          {
+            "name": "Accuracy",
+            "value": "0.8634"
+          }
+        ]
+      },
+      "createdAt": "2026-03-10T00:00:00Z",
+      "updatedAt": "2026-07-14T00:00:00Z"
+    },
+    {
+      "uniqueId": "38d4834a-3cdb-41bc-9251-163450acc7cb",
+      "name": "EfficientNet",
+      "displayName": "EfficientNetV2",
+      "description": "EfficientNetV2 model optimized for image classification on the MAX78002. Trained on the ImageNet dataset for large-scale visual recognition.",
+      "task": "Image Classification",
+      "taskType": "Vision",
+      "framework": "pytorch",
+      "license": "Apache-2.0",
+      "owner": "ADI",
+      "supportedPlatforms": [
+        {
+          "soc": "MAX78002",
+          "board": "EvKit_V1",
+          "family": "Cortex-M",
+          "core": "CM4",
+          "accelerator": "CNN",
+          "modelPaths": {
+            "int8": [
+              "vision_models/image_classification/efficientnet/data/model/ai87-imagenet-effnet2-q.pth.tar",
+              "vision_models/image_classification/efficientnet/data/model/ai87net_imagenet_effnetv2.py"
+            ]
+          },
+          "sizeInKb": {
+            "int8": 19993.217
+          },
+          "sample_binary": {
+            "int8": "vision_models/image_classification/efficientnet/data/input/classification_efficientnet_int8.bin"
+          },
+          "compilation": {
+            "hardwareParameters": [],
+            "optimization": {
+              "values": ["-O0", "-O2"],
+              "default": "-O0"
+            },
+            "quantization": {
+              "values": ["int8"],
+              "default": "int8"
+            }
+          }
+        }
+      ],
+      "networkInputs": [
+        {
+          "name": "input",
+          "shape": "(112, 112)",
+          "description": "Input image dimensions."
+        }
+      ],
+      "networkOutputs": [
+        {
+          "name": "output",
+          "shape": "(1, 1000)",
+          "description": "Probability distribution over 1000 ImageNet classes."
+        }
+      ],
+      "createdAt": "2026-03-10T00:00:00Z",
+      "updatedAt": "2026-07-14T00:00:00Z"
+    },
+    {
+      "uniqueId": "dd316bc5-f76d-43c3-aaa5-aa490b69dfcb",
+      "name": "MobileNetV2",
+      "description": "Image classification network using inverted residual blocks with depthwise convolutions, global average pooling, and Softmax. Trained on CIFAR-100.",
+      "task": "Image Classification",
+      "taskType": "Vision",
+      "framework": "pytorch",
+      "license": "Apache-2.0",
+      "owner": "ADI",
+      "supportedPlatforms": [
+        {
+          "soc": "MAX78002",
+          "board": "EvKit_V1",
+          "family": "Cortex-M",
+          "core": "CM4",
+          "accelerator": "CNN",
+          "modelPaths": {
+            "int8": [
+              "vision_models/image_classification/mobilenetv2/data/model/ai87-cifar100-mobilenet-v2-0.75-qat8-q.pth.tar",
+              "vision_models/image_classification/mobilenetv2/data/model/ai87net-mobilenet-v2.py"
+            ]
+          },
+          "sizeInKb": {
+            "int8": 10791.259
+          },
+          "sample_binary": {
+            "int8": "vision_models/image_classification/mobilenetv2/data/input/classification_mobilenetv2_int8.bin"
+          },
+          "compilation": {
+            "hardwareParameters": [],
+            "optimization": {
+              "values": ["-O0", "-O2"],
+              "default": "-O0"
+            },
+            "quantization": {
+              "values": ["int8"],
+              "default": "int8"
+            }
+          }
+        }
+      ],
+      "networkInputs": [
+        {
+          "name": "input",
+          "shape": "(3, 32, 32)",
+          "description": "Input image in CHW format."
+        }
+      ],
+      "networkOutputs": [
+        {
+          "name": "output",
+          "shape": "(1, 100)",
+          "description": "Confidence scores for 100 CIFAR-100 classes."
+        }
+      ],
+      "accuracy": {
+        "dataset": "CIFAR-100",
+        "metrics": [
+          {
+            "name": "Top-1 Accuracy",
+            "value": "0.6471"
+          },
+          {
+            "name": "Top-5 Accuracy",
+            "value": "0.8874"
+          }
+        ]
+      },
+      "createdAt": "2026-03-10T00:00:00Z",
+      "updatedAt": "2026-07-14T00:00:00Z"
+    },
+    {
+      "uniqueId": "ac43eff6-f475-4409-9fff-9431bad26ad4",
+      "name": "SimpleNet",
+      "description": "Image classification through sequential convolutional blocks with progressive spatial reduction and channel depth increase, global average pooling, and Softmax. Trained on CIFAR-100.",
+      "task": "Image Classification",
+      "taskType": "Vision",
+      "framework": "pytorch",
+      "license": "Apache-2.0",
+      "owner": "ADI",
+      "supportedPlatforms": [
+        {
+          "soc": "MAX78002",
+          "board": "EvKit_V1",
+          "family": "Cortex-M",
+          "core": "CM4",
+          "accelerator": "CNN",
+          "modelPaths": {
+            "int8": [
+              "vision_models/image_classification/simplenet/data/model/ai85-cifar100-simplenetwide2x-qat-mixed-q.pth.tar",
+              "vision_models/image_classification/simplenet/data/model/ai85net-simplenet-wide2x.py"
+            ]
+          },
+          "sizeInKb": {
+            "int8": 8611.452
+          },
+          "sample_binary": {
+            "int8": "vision_models/image_classification/simplenet/data/input/classification_simplenet_int8.bin"
+          },
+          "compilation": {
+            "hardwareParameters": [],
+            "optimization": {
+              "values": ["-O0", "-O2"],
+              "default": "-O0"
+            },
+            "quantization": {
+              "values": ["int8"],
+              "default": "int8"
+            }
+          }
+        }
+      ],
+      "networkInputs": [
+        {
+          "name": "input",
+          "shape": "(3, 32, 32)",
+          "description": "Input image in CHW format."
+        }
+      ],
+      "networkOutputs": [
+        {
+          "name": "output",
+          "shape": "(1, 100)",
+          "description": "Confidence scores for 100 CIFAR-100 classes."
+        }
+      ],
+      "accuracy": {
+        "dataset": "CIFAR-100",
+        "metrics": [
+          {
+            "name": "Top-1 Accuracy",
+            "value": "0.6030"
+          },
+          {
+            "name": "Top-5 Accuracy",
+            "value": "0.8623"
+          }
+        ]
+      },
+      "createdAt": "2026-03-10T00:00:00Z",
+      "updatedAt": "2026-07-14T00:00:00Z"
+    },
+    {
+      "uniqueId": "4035f09f-b190-4937-a5aa-7703cff5e9d7",
+      "name": "UNet",
+      "description": "Image segmentation network combining contracting and expanding paths with skip connections for pixel-wise class predictions. Trained on AISegment dataset.",
+      "task": "Image Segmentation",
+      "taskType": "Vision",
+      "framework": "pytorch",
+      "license": "Apache-2.0",
+      "owner": "ADI",
+      "supportedPlatforms": [
+        {
+          "soc": "MAX78002",
+          "board": "EvKit_V1",
+          "family": "Cortex-M",
+          "core": "CM4",
+          "accelerator": "CNN",
+          "modelPaths": {
+            "int8": [
+              "vision_models/image_segmentation/unet/data/model/ai85-aisegment-unet-large-fakept-q.pth.tar",
+              "vision_models/image_segmentation/unet/data/model/ai85net-unet.py"
+            ]
+          },
+          "sizeInKb": {
+            "int8": 3342.407
+          },
+          "sample_binary": {
+            "int8": "vision_models/image_segmentation/unet/data/input/segmentation_unet_int8.bin"
+          },
+          "compilation": {
+            "hardwareParameters": [],
+            "optimization": {
+              "values": ["-O0", "-O2"],
+              "default": "-O0"
+            },
+            "quantization": {
+              "values": ["int8"],
+              "default": "int8"
+            }
+          }
+        }
+      ],
+      "networkInputs": [
+        {
+          "name": "input",
+          "shape": "(48, 48, 48)",
+          "description": "Folded input image in CHW format."
+        }
+      ],
+      "networkOutputs": [
+        {
+          "name": "output",
+          "shape": "(1, 32, 48, 48)",
+          "description": "Segmented output mask."
+        }
+      ],
+      "accuracy": {
+        "dataset": "AISegment",
+        "metrics": [
+          {
+            "name": "Top-1 Accuracy",
+            "value": "0.98452"
+          }
+        ]
+      },
+      "createdAt": "2026-03-10T00:00:00Z",
+      "updatedAt": "2026-07-14T00:00:00Z"
+    },
+    {
+      "uniqueId": "2efe881f-0957-41b2-8d87-6bd18bd9ef64",
+      "name": "Feature Pyramid Net",
+      "displayName": "Feature Pyramid Network",
+      "description": "Multi-scale feature pyramid for efficient object detection at different sizes. Trained on PascalVOC dataset.",
+      "task": "Object Detection",
+      "taskType": "Vision",
+      "framework": "pytorch",
+      "license": "Apache-2.0",
+      "owner": "ADI",
+      "supportedPlatforms": [
+        {
+          "soc": "MAX78002",
+          "board": "EvKit_V1",
+          "family": "Cortex-M",
+          "core": "CM4",
+          "accelerator": "CNN",
+          "modelPaths": {
+            "int8": [
+              "vision_models/object_detection/feature_pyramid_net/data/model/ai87-pascalvoc-fpndetector-qat8-q.pth.tar",
+              "vision_models/object_detection/feature_pyramid_net/data/model/ai87-fpndetector.py"
+            ]
+          },
+          "sizeInKb": {
+            "int8": 25778.67
+          },
+          "sample_binary": {
+            "int8": "vision_models/object_detection/feature_pyramid_net/data/input/obj-detection_fpn_int8.bin"
+          },
+          "compilation": {
+            "hardwareParameters": [],
+            "optimization": {
+              "values": ["-O0", "-O2"],
+              "default": "-O0"
+            },
+            "quantization": {
+              "values": ["int8"],
+              "default": "int8"
+            }
+          }
+        }
+      ],
+      "networkInputs": [
+        {
+          "name": "input",
+          "shape": "(3, 256, 320)",
+          "description": "Input image in CHW format."
+        }
+      ],
+      "networkOutputs": [
+        {
+          "name": "regression",
+          "shape": "(1, 10200, 4)",
+          "description": "Bounding box localization predictions for detected objects."
+        },
+        {
+          "name": "classification",
+          "shape": "(1, 10200, 21)",
+          "description": "Confidence scores for 21 PascalVOC classes."
+        }
+      ],
+      "accuracy": {
+        "dataset": "PascalVOC",
+        "metrics": [
+          {
+            "name": "mAP",
+            "value": "0.50512"
+          }
+        ]
+      },
+      "createdAt": "2026-03-10T00:00:00Z",
+      "updatedAt": "2026-07-14T00:00:00Z"
+    },
+    {
+      "uniqueId": "310a2493-0497-49ff-bfc7-49e9d3f0cf03",
+      "name": "TinierSSD",
+      "description": "TinierSSD model for QR code detection with keypoints, optimized for MAX78002. Trained using BG-20k dataset for synthetic training data.",
+      "task": "Object Detection",
+      "taskType": "Vision",
+      "framework": "pytorch",
+      "license": "MIT",
+      "owner": "ADI",
+      "supportedPlatforms": [
+        {
+          "soc": "MAX78002",
+          "board": "EvKit_V1",
+          "family": "Cortex-M",
+          "core": "CM4",
+          "accelerator": "CNN",
+          "modelPaths": {
+            "int8": [
+              "vision_models/object_detection/tinierssd/data/model/ai85-qrcode-tinierssd-kpts-qat8-q.pth.tar",
+              "vision_models/object_detection/tinierssd/data/model/ai85net_tinierssd_kpts_qr.py"
+            ]
+          },
+          "sizeInKb": {
+            "int8": 4483.632
+          },
+          "sample_binary": {
+            "int8": "vision_models/object_detection/tinierssd/data/input/obj-detection_tinierssd_int8.bin"
+          },
+          "compilation": {
+            "hardwareParameters": [],
+            "optimization": {
+              "values": ["-O0", "-O2"],
+              "default": "-O0"
+            },
+            "quantization": {
+              "values": ["int8"],
+              "default": "int8"
+            }
+          }
+        }
+      ],
+      "networkInputs": [
+        {
+          "name": "input",
+          "shape": "(1, 3, 120, 160)",
+          "description": "RGB input image resized to 120x160 (HxW), channels-first format."
+        }
+      ],
+      "networkOutputs": [
+        {
+          "name": "loc",
+          "shape": "(1, 1548, 12)",
+          "description": "Bounding box localization predictions."
+        },
+        {
+          "name": "score",
+          "shape": "(1, 1548, 2)",
+          "description": "Classification confidence scores."
+        }
+      ],
+      "accuracy": {
+        "dataset": "BG-20k (synthetic QR codes)",
+        "metrics": [
+          {
+            "name": "mAP",
+            "value": "0.89960"
+          }
+        ]
+      },
+      "createdAt": "2026-03-10T00:00:00Z",
+      "updatedAt": "2026-07-14T00:00:00Z"
+    },
+    {
+      "uniqueId": "6c0449c8-a493-406b-9f3e-100b2c2848be",
+      "name": "MicroNet VWW",
+      "displayName": "MicroNet VWW-2 INT8",
+      "description": "Fully quantized MicroNet VWW-2 model for person/non-person detection, optimized for MAX32690 deployment. Trained on Visual Wake Words dataset.",
+      "task": "Visual Wake Word",
+      "taskType": "Vision",
+      "framework": "tensorflow",
+      "license": "Apache-2.0",
+      "owner": "ADI",
+      "supportedPlatforms": [
+        {
+          "soc": "MAX32690",
+          "board": "EvKit_V1",
+          "family": "Cortex-M",
+          "core": "CM4",
+          "modelPaths": {
+            "int8": "vision_models/visual_wake_word/micronet_vww2_int8/data/model/vww2_50_50_INT8.tflite"
+          },
+          "sizeInKb": {
+            "int8": 273.812
+          },
+          "sample_binary": {
+            "int8": "vision_models/visual_wake_word/micronet_vww2_int8/data/inputs/vww_micronet_int8.bin"
+          },
+          "compilation": {
+            "hardwareParameters": [],
+            "optimization": {
+              "values": ["-O0", "-O2"],
+              "default": "-O0"
+            },
+            "quantization": {
+              "values": ["int8"],
+              "default": "int8"
+            }
+          }
+        }
+      ],
+      "networkInputs": [
+        {
+          "name": "input",
+          "shape": "(1, 50, 50, 1)",
+          "description": "A 50x50 grayscale input image."
+        }
+      ],
+      "networkOutputs": [
+        {
+          "name": "Identity",
+          "shape": "(1, 2)",
+          "description": "Per-class confidence (0=no person present, 1=person present)."
+        }
+      ],
+      "accuracy": {
+        "dataset": "Visual Wake Words",
+        "metrics": [
+          {
+            "name": "Accuracy",
+            "value": "0.768"
+          }
+        ]
+      },
+      "createdAt": "2026-03-10T00:00:00Z",
+      "updatedAt": "2026-07-14T00:00:00Z"
+    },
+    {
+      "uniqueId": "68bf82a3-69a7-4cd8-8327-eae0ca730346",
+      "name": "Autoencoder",
+      "displayName": "Anomaly Detection Autoencoder",
+      "description": "Autoencoder model for anomaly detection, optimized for MAX32690 deployment. Trained using the MIMII dataset for malfunctioning industrial machine investigation.",
+      "task": "Anomaly Detection",
+      "taskType": "Time-series",
+      "framework": "tensorflow",
+      "license": "Apache-2.0",
+      "owner": "ADI",
+      "supportedPlatforms": [
+        {
+          "soc": "MAX32690",
+          "board": "EvKit_V1",
+          "family": "Cortex-M",
+          "core": "CM4",
+          "modelPaths": {
+            "int8": "sensor_models/anomaly_detection/autoencoder/data/model/model_fan_quant_fullint_micro_intio.tflite"
+          },
+          "sizeInKb": {
+            "int8": 300.078
+          },
+          "sample_binary": {
+            "int8": "sensor_models/anomaly_detection/autoencoder/data/input/ad_autoencoder_int8.bin"
+          },
+          "compilation": {
+            "hardwareParameters": [],
+            "optimization": {
+              "values": ["-O0", "-O2"],
+              "default": "-O0"
+            },
+            "quantization": {
+              "values": ["int8"],
+              "default": "int8"
+            }
+          }
+        }
+      ],
+      "networkInputs": [
+        {
+          "name": "input",
+          "shape": "(1, 196, 640)",
+          "description": "Mel Spectrogram of the waveform with resolution 196 x 640."
+        }
+      ],
+      "networkOutputs": [
+        {
+          "name": "output",
+          "shape": "(1, 196, 640)",
+          "description": "Reconstructed Mel Spectrogram output."
+        }
+      ],
+      "accuracy": {
+        "dataset": "MIMII Dataset (fan)",
+        "metrics": [
+          {
+            "name": "AUC",
+            "value": "0.51633"
+          },
+          {
+            "name": "pAUC",
+            "value": "0.52276"
+          }
+        ]
+      },
+      "createdAt": "2026-03-10T00:00:00Z",
+      "updatedAt": "2026-07-14T00:00:00Z"
+    },
+    {
+      "uniqueId": "6b729dad-8784-4de8-b1ae-a8b993355764",
+      "name": "Autoencoder",
+      "displayName": "Motor Fault Detection Autoencoder",
+      "description": "Autoencoder network for efficient detection of faults in motor signals by compressing input data and reconstructing the original representation. Trained on ADI Motor Fault dataset.",
+      "task": "Motor Fault Detection",
+      "taskType": "Time-series",
+      "framework": "pytorch",
+      "license": "Apache-2.0",
+      "owner": "ADI",
+      "supportedPlatforms": [
+        {
+          "soc": "MAX78002",
+          "board": "EvKit_V1",
+          "family": "Cortex-M",
+          "core": "CM4",
+          "accelerator": "CNN",
+          "modelPaths": {
+            "int8": [
+              "sensor_models/motor_fault_detection/autoencoder/data/model/ai85-autoencoder-samplemotordatalimerick-qat-q.pth.tar",
+              "sensor_models/motor_fault_detection/autoencoder/data/model/ai85net-autoencoder.py"
+            ]
+          },
+          "sizeInKb": {
+            "int8": 1636.35
+          },
+          "sample_binary": {
+            "int8": "sensor_models/motor_fault_detection/autoencoder/data/input/mfd_autoencoder_int8.bin"
+          },
+          "compilation": {
+            "hardwareParameters": [],
+            "optimization": {
+              "values": ["-O0", "-O2"],
+              "default": "-O0"
+            },
+            "quantization": {
+              "values": ["int8"],
+              "default": "int8"
+            }
+          }
+        }
+      ],
+      "networkInputs": [
+        {
+          "name": "input",
+          "shape": "(256, 3)",
+          "description": "Motor signal input with signal length and channels."
+        }
+      ],
+      "networkOutputs": [
+        {
+          "name": "output",
+          "shape": "(256, 3)",
+          "description": "Decoded motor signal output."
+        }
+      ],
+      "accuracy": {
+        "dataset": "Motor Fault Sample (ADI)",
+        "metrics": [
+          {
+            "name": "MSE",
+            "value": "0.02205"
+          }
+        ]
+      },
+      "createdAt": "2026-03-10T00:00:00Z",
+      "updatedAt": "2026-07-14T00:00:00Z"
+    }
+  ]
+}
