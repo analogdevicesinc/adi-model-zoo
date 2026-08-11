@@ -154,13 +154,17 @@
         {
           "if": { "properties": { "soc": { "const": "ADSP-SC835" } } },
           "then": { "properties": { "board": { "enum": ["ADSPSC835-EV-SOM", "EV-SOMCRR-EZKIT"] } } }
+        },
+        {
+          "if": { "properties": { "soc": { "const": "ADSP-SC835W" } } },
+          "then": { "properties": { "board": { "enum": ["ADSPSC835-EV-SOM", "EV-SOMCRR-EZKIT"] } } }
         }
       ],
       "properties": {
         "soc": {
           "type": "string",
           "description": "System-on-Chip name.",
-          "enum": ["MAX78002", "MAX32690", "ADSP-SC835"]
+          "enum": ["MAX78002", "MAX32690", "ADSP-SC835", "ADSP-SC835W"]
         },
         "board": {
           "type": "string",
