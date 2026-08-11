@@ -1,0 +1,49 @@
+version: "1.0"
+schema_type: "edge_ai_model"
+
+model:
+  name: "MicroNet AD Small"
+  version: "2.0.0"
+  description: "Lightweight CNN for unsupervised anomaly detection on edge devices. Trained as a self-supervised machine-ID classifier on the DCASE 2020 / MIMII slide rail dataset."
+
+  formats:
+    - format: "tflite"
+      model_files:
+        - name: "micronet_ad_small_int8.tflite"
+          precision: "int8"
+          size_mb: 0.24
+
+  metadata:
+    authors:
+      - name: ["Banbury", "Colin"]
+        organization: "Harvard University"
+      - name: ["Zhou", "Ching-Hao"]
+        organization: "ARM ML Research Lab"
+      - name: ["Fedorov", "Igor"]
+        organization: "Harvard University"
+
+    license:
+      model:
+        name: "Apache 2.0"
+        url: "https://spdx.org/licenses/Apache-2.0.html"
+      dataset:
+        name: "CC BY-SA 4.0"
+        url: "https://spdx.org/licenses/CC-BY-SA-4.0.html"
+
+    research:
+      papers:
+        - title: "MicroNets: Neural Network Architectures for Deploying TinyML Applications on Commodity Microcontrollers"
+          authors: ["Banbury", "Colin", "Zhou", "Ching-Hao", "Fedorov", "Igor"]
+          url: "https://arxiv.org/abs/2010.11267"
+
+  inputs:
+    - name: "input"
+      type: "image"
+      shape: [1, 32, 32, 1]
+      dtype: "int8"
+
+  outputs:
+    - name: "output"
+      type: "confidence scores"
+      shape: [1, 4]
+      dtype: "int8"
