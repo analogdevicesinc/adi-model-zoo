@@ -77,6 +77,38 @@
               "default": "int8"
             }
           }
+        },
+        {
+          "soc": "ADSP-SC835W",
+          "board": "ADSPSC835-EV-SOM",
+          "family": "SHARC-FX",
+          "core": "FX",
+          "modelPaths": {
+            "int8": "audio_models/audio_keyword_spotting/ds_cnn/data/model/ds_cnn_s_int8.tflite",
+            "int16": "audio_models/audio_keyword_spotting/ds_cnn/data/model/ds_cnn_s_int16.tflite",
+            "float32": "audio_models/audio_keyword_spotting/ds_cnn/data/model/ds_cnn_s_float32.tflite"
+          },
+          "sizeInKb": {
+            "int8": 46.5,
+            "int16": 54.094,
+            "float32": 96.441
+          },
+          "sample_binary": {
+            "int8": "audio_models/audio_keyword_spotting/ds_cnn/data/input/kws_ds-cnn_int8.bin",
+            "int16": "audio_models/audio_keyword_spotting/ds_cnn/data/input/kws_ds-cnn_int16.bin",
+            "float32": "audio_models/audio_keyword_spotting/ds_cnn/data/input/kws_ds-cnn_float32.bin"
+          },
+          "compilation": {
+            "hardwareParameters": [],
+            "optimization": {
+              "values": ["-O0", "-O3"],
+              "default": "-O0"
+            },
+            "quantization": {
+              "values": ["int8", "int16", "float32"],
+              "default": "int8"
+            }
+          }
         }
       ],
       "networkInputs": [
@@ -118,6 +150,41 @@
       "supportedPlatforms": [
         {
           "soc": "ADSP-SC835",
+          "board": "ADSPSC835-EV-SOM",
+          "family": "SHARC-FX",
+          "core": "FX",
+          "modelPaths": {
+            "float32": [
+              "audio_models/audio_denoising/dtln/data/model/model_float32/model_float_1.tflite",
+              "audio_models/audio_denoising/dtln/data/model/model_float32/model_float_2.tflite"
+            ],
+            "int16": [
+              "audio_models/audio_denoising/dtln/data/model/model_int16/model_int16_1.tflite",
+              "audio_models/audio_denoising/dtln/data/model/model_int16/model_int16_2.tflite"
+            ]
+          },
+          "sizeInKb": {
+            "float32": 3876.633,
+            "int16": 1027.664
+          },
+          "sample_binary": {
+            "float32": "audio_models/audio_denoising/dtln/data/input/denoiser_dtln_float32.bin",
+            "int16": "audio_models/audio_denoising/dtln/data/input/denoiser_dtln_int16.bin"
+          },
+          "compilation": {
+            "hardwareParameters": [],
+            "optimization": {
+              "values": ["-O0", "-O3"],
+              "default": "-O0"
+            },
+            "quantization": {
+              "values": ["float32", "int16"],
+              "default": "float32"
+            }
+          }
+        },
+        {
+          "soc": "ADSP-SC835W",
           "board": "ADSPSC835-EV-SOM",
           "family": "SHARC-FX",
           "core": "FX",
@@ -326,6 +393,32 @@
       "supportedPlatforms": [
         {
           "soc": "ADSP-SC835",
+          "board": "ADSPSC835-EV-SOM",
+          "family": "SHARC-FX",
+          "core": "FX",
+          "modelPaths": {
+            "int8": "audio_models/audio_genre_identification/genrenet_conv2d/data/model/int8_genre_ID.tflite"
+          },
+          "sizeInKb": {
+            "int8": 3856.695
+          },
+          "sample_binary": {
+            "int8": "audio_models/audio_genre_identification/genrenet_conv2d/data/input/genre-id_genrenet_int8.bin"
+          },
+          "compilation": {
+            "hardwareParameters": [],
+            "optimization": {
+              "values": ["-O0", "-O3"],
+              "default": "-O0"
+            },
+            "quantization": {
+              "values": ["int8"],
+              "default": "int8"
+            }
+          }
+        },
+        {
+          "soc": "ADSP-SC835W",
           "board": "ADSPSC835-EV-SOM",
           "family": "SHARC-FX",
           "core": "FX",
