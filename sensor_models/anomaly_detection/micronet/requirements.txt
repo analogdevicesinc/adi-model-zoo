@@ -1,0 +1,5 @@
+numpy
+ai-edge-litert
+matplotlib
+pandas
+scipy
