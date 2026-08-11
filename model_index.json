@@ -1,7 +1,7 @@
 {
   "$schema": "./models.schema.json",
   "version": "1.0.0",
-  "lastUpdated": "2026-07-22",
+  "lastUpdated": "2026-08-11",
   "models": [
     {
       "uniqueId": "bb653b9c-5af1-4e6f-976e-8dec1ded903d",
@@ -1056,6 +1056,74 @@
       },
       "createdAt": "2026-03-10T00:00:00Z",
       "updatedAt": "2026-07-14T00:00:00Z"
+    },
+    {
+      "uniqueId": "9d3d216e-d9bb-4971-89c7-9f048227fb44",
+      "name": "MicroNet AD",
+      "displayName": "MicroNet AD Small",
+      "description": "Lightweight CNN for unsupervised anomaly detection on edge devices. Trained as a self-supervised machine-ID classifier on the DCASE 2020 / MIMII slide rail dataset.",
+      "task": "Anomaly Detection",
+      "taskType": "Time-series",
+      "framework": "tensorflow",
+      "license": "Apache-2.0",
+      "owner": "ADI",
+      "supportedPlatforms": [
+        {
+          "soc": "MAX32690",
+          "board": "EvKit_V1",
+          "family": "Cortex-M",
+          "core": "CM4",
+          "modelPaths": {
+            "int8": "sensor_models/anomaly_detection/micronet/data/model/micronet_ad_small_int8.tflite"
+          },
+          "sizeInKb": {
+            "int8": 247.688
+          },
+          "sample_binary": {
+            "int8": "sensor_models/anomaly_detection/micronet/data/input/ad_micronet_int8.bin"
+          },
+          "compilation": {
+            "hardwareParameters": [],
+            "optimization": {
+              "values": ["-O0", "-O2"],
+              "default": "-O0"
+            },
+            "quantization": {
+              "values": ["int8"],
+              "default": "int8"
+            }
+          }
+        }
+      ],
+      "networkInputs": [
+        {
+          "name": "input",
+          "shape": "(1, 32, 32, 1)",
+          "description": "64 steps of a log mel spectrogram resized to 32x32."
+        }
+      ],
+      "networkOutputs": [
+        {
+          "name": "output",
+          "shape": "(1, 4)",
+          "description": "Raw logits corresponding to different machine IDs."
+        }
+      ],
+      "accuracy": {
+        "dataset": "DCASE 2020 (MIMII slide rail)",
+        "metrics": [
+          {
+            "name": "AUC",
+            "value": "0.8768"
+          },
+          {
+            "name": "pAUC",
+            "value": "0.5853"
+          }
+        ]
+      },
+      "createdAt": "2026-08-11T00:00:00Z",
+      "updatedAt": "2026-08-11T00:00:00Z"
     }
   ]
 }
